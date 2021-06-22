@@ -1,3 +1,4 @@
+[![ci](https://github.com/ljferrero/santander-dockercoins/actions/workflows/ci.yaml/badge.svg)](https://github.com/ljferrero/santander-dockercoins/actions/workflows/ci.yaml)
 # santander-dockercoins
 ```
 docker image build --file hasher/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-hasher hasher/
