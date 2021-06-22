@@ -15,9 +15,9 @@ spec:
       containers:
         - name: santander-dockercoins-rng-container
           args:
-            - hasher.rb
+            - rng.py
           command:
-            - irb
+            - python3
           image: index.docker.io/ljferrero/santander-dockercoins:0.3-rng
           volumeMounts:
             - mountPath: /src/
