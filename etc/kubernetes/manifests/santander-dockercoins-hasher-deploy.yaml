@@ -28,7 +28,7 @@ spec:
         - name: santander-dockercoins-hasher-initcontainer
           args:
             - -c
-            - set -x; cd /src/; git clone https://github.com/ljferrero/santander-dockercoins; cd santander-dockercoins; git checkout 2021-06; cp hasher/hasher.rb /src/; rm -rf /src/santander-dockercoins
+            - cd /src/; git clone https://github.com/ljferrero/santander-dockercoins; cd santander-dockercoins; git checkout 2021-06; cp hasher/hasher.rb /src/; rm -rf /src/santander-dockercoins
           command:
             - sh
           image: index.docker.io/alpine/git:latest
