@@ -26,4 +26,6 @@ spec:
           workingDir: /data/
       volumes:
         - name: santander-dockercoins-redis-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName:  santander-dockercoins-redis-pvc
+            readOnly: false
