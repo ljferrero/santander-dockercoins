@@ -12,3 +12,7 @@ sudo docker container run --detach --entrypoint docker-entrypoint.sh --name redi
 sudo docker container run --detach --entrypoint irb --name hasher --network hasher-network --rm --volume ${PWD}/hasher/hasher.rb:/src/hasher.rb:ro --workdir /src/ index.docker.io/machacamoya/santander-dockercoins:test-hasher hasher.rb
 sudo docker container run --detach --entrypoint python3 --name rng --network rng-network --rm --volume ${PWD}/rng/rng.py:/src/rng.py:ro --workdir /src/ index.docker.io/machacamoya/santander-dockercoins:test-rng rng.py
 sudo docker container run --detach --entrypoint node --name webui --network redis-network --rm --volume ${PWD}/webui/files/:/src/files/:ro --volume ${PWD}/webui/webui.js:/src/webui.js:ro --workdir /src/ index.docker.io/machacamoya/santander-dockercoins:test-webui webui.js
+sudo docker container run --detach --entrypoint python3 --name worker --network hasher-network --rm --volume ${PWD}/worker/worker.py:/src/worker.py:ro --workdir /src/ index.docker.io/machacamoya/santander-dockercoins:test-worker worker.py
+sudo docker network connect redis-network worker
+sudo docker network connect rng-network worker
+while true; do sleep 10 && sudo docker container logs worker 2>&1 | grep "Coin found" && break; done
