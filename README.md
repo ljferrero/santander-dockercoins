@@ -1,9 +1,9 @@
 # santander-dockercoins
 ```
-docker image build --file hasher/Dockerfile --tag index.docker.io/machacamoya/santander-dockercoins:test-hasher hasher/
-docker image build --file rng/Dockerfile --tag index.docker.io/machacamoya/santander-dockercoins:test-rng rng/
-docker image build --file webui/Dockerfile --tag index.docker.io/machacamoya/santander-dockercoins:test-webui webui/
-docker image build --file worker/Dockerfile --tag index.docker.io/machacamoya/santander-dockercoins:test-worker worker/
+docker image build --file hasher/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-hasher hasher/
+docker image build --file rng/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-rng rng/
+docker image build --file webui/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-webui webui/
+docker image build --file worker/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-worker worker/
 docker network create hasher-network
 docker network create redis-network
 docker network create rng-network
