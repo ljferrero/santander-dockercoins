@@ -36,7 +36,7 @@ jobs:
       - name: run-rng
         run: docker container run --detach --entrypoint python3 --name rng --network rng-network --rm --volume ${PWD}/rng/rng.py:/src/rng.py:ro --workdir /src/ index.docker.io/${username}/santander-dockercoins:test-rng rng.py
       - name: run-webui
-        run: docker container run --detach --entrypoint node --name webui --network redis-network --rm --volume ${PWD}/webui/files/:/src/files/:ro --volume ${PWD}/webui/webui.js:/src/webui.js:ro --workdir /src/ index.docker.io${username}/santander-dockercoins:test-webui webui.js
+        run: docker container run --detach --entrypoint node --name webui --network redis-network --rm --volume ${PWD}/webui/files/:/src/files/:ro --volume ${PWD}/webui/webui.js:/src/webui.js:ro --workdir /src/ index.docker.io/${username}/santander-dockercoins:test-webui webui.js
       - name: run-worker
         run: docker container run --detach --entrypoint python3 --name worker --network hasher-network --rm --volume ${PWD}/worker/worker.py:/src/worker.py:ro --workdir /src/ index.docker.io/${username}/santander-dockercoins:test-worker worker.py
       - name: connect-redis
