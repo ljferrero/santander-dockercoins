@@ -1,1 +1,23 @@
-
+name: cd
+on:
+  release:
+    types:
+      - published
+jobs:
+  Dockerhub:
+    env:
+      username: ljferrero
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: build-hasher
+        run: docker image build --file hasher/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-hasher hasher/
+      - name: build-rng
+        run: docker image build --file rng/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-rng rng/
+      - name: build-webui
+        run: docker image build --file webui/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-webui webui/
+      - name: build-worker
+        run: docker image build --file worker/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-worker worker/
+      - name: test
+        run: basename ${GITHUB_REF}
