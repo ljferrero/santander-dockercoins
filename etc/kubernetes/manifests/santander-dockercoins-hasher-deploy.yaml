@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: santander-dockercoins-hasher-deploy
+spec:
+  selector:
+    matchLabels:
+      app: santander-dockercoins-hasher
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: santander-dockercoins-hasher
+    spec:
+      containers:
+        - name: santander-dockercoins-hasher-container
+          args:
+            - hasher.rb
+          command:
+            - irb
+          image: index.docker.io/ljferrero/santander-dockercoins:0.3-hasher
+          volumeMounts:
+            - mountPath: /src/hasher.rb
+              name: santander-dockercoins-hasher-volume
+              readOnly: true
+              subPath: hasher.rb
+          workingDir: /src/
