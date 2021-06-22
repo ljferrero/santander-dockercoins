@@ -13,8 +13,6 @@ jobs:
         uses: actions/checkout@v2
       - name: test-env
         run: echo ${username}
-      - name: docker-login
-        run: echo docker login -u ${username} -p ${{secrets.tokendockercoins}}
       - name: build-hasher
         run: docker image build --file hasher/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-hasher hasher/
       - name: build-rng
