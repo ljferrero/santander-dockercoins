@@ -20,8 +20,23 @@ spec:
             - irb
           image: index.docker.io/ljferrero/santander-dockercoins:0.3-hasher
           volumeMounts:
-            - mountPath: /src/hasher.rb
+            - mountPath: /src/
               name: santander-dockercoins-hasher-volume
               readOnly: true
-              subPath: hasher.rb
           workingDir: /src/
+      initContainers:
+        - name: santander-dockercoins-hasher-initcontainer
+          args:
+            - -c
+            - set -x; git clone https://github.com/ljferrero/santander-dockercoins; cd santander-dockercoins; git checkout 2021-06; cp hasher/hasher.rb /src/
+          command:
+            - sh
+          image: index.docker.io/alpine/git:latest
+          volumeMounts:
+            - mountPath: /src/
+              name: santander-dockercoins-hasher-volume
+              readOnly: false
+      volumes:
+        - name: santander-dockercoins-hasher-volume
+          emptyDir: {}
+              
