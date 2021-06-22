@@ -1,4 +1,3 @@
-
 name: ci
 on:
   push:
@@ -15,13 +14,13 @@ jobs:
       - name: test-env
         run: echo ${username}
       - name: build-hasher
-        run: docker image build --file hasher/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-hasher hasher/
+        run: docker image build --file hasher/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-hasher hasher/
       - name: build-rng
-        run: docker image build --file rng/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-rng rng/
+        run: docker image build --file rng/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-rng rng/
       - name: build-webui
-        run: docker image build --file webui/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-webui webui/
+        run: docker image build --file webui/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-webui webui/
       - name: build-worker
-        run: docker image build --file worker/Dockerfile --tag index.docker.io/ljferrero/santander-dockercoins:test-worker worker/
+        run: docker image build --file worker/Dockerfile --tag index.docker.io/${username}/santander-dockercoins:test-worker worker/
       - name: network-hasher
         run: docker network create hasher-network
       - name: network-redis
@@ -45,4 +44,4 @@ jobs:
       - name: connect-rng
         run: docker network connect rng-network worker
       - name: logs-worker
-        run: while true; do sleep 10 && docker container logs worker 2>&1 | grep "Coin found" && break; done
+        run: while true; do sleep 10 && docker container logs worker && docker container logs worker 2>&1 | grep "Coin found" && break; done
