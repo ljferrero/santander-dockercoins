@@ -5,38 +5,39 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: santander-dockercoins-hasher
-  replicas: 3
+      app: santander-dockercoins-webui
+  replicas: 1
   template:
     metadata:
       labels:
-        app: santander-dockercoins-hasher
+        app: santander-dockercoins-webui
     spec:
       containers:
-        - name: santander-dockercoins-hasher-container
+        - name: santander-dockercoins-webui-container
           args:
-            - hasher.rb
+            - webui.js
           command:
-            - irb
-          image: index.docker.io/ljferrero/santander-dockercoins:0.3-hasher
+            - node
+          image: index.docker.io/ljferrero/santander-dockercoins:0.3-webui
           volumeMounts:
             - mountPath: /src/
-              name: santander-dockercoins-hasher-volume
+              name: santander-dockercoins-webui-volume
               readOnly: true
           workingDir: /src/
       initContainers:
-        - name: santander-dockercoins-hasher-initcontainer
+        - name: santander-dockercoins-webui-initcontainer
           args:
             - -c
-            - cd /src/; git clone https://github.com/ljferrero/santander-dockercoins; cd santander-dockercoins; git checkout 2021-06; cp hasher/hasher.rb /src/; rm -rf /src/santander-dockercoins
+            - cd /src/; git clone https://github.com/ljferrero/santander-dockercoins; cd santander-dockercoins; git checkout 2021-06; cp webui/webui.js /src/; cp -r webui/files/ /src/ ;rm -rf /src/santander-dockercoins
           command:
             - sh
           image: index.docker.io/alpine/git:latest
           volumeMounts:
             - mountPath: /src/
-              name: santander-dockercoins-hasher-volume
+              name: santander-dockercoins-webui-volume
               readOnly: false
       volumes:
-        - name: santander-dockercoins-hasher-volume
-          emptyDir: {}
-              
+        - name: santander-dockercoins-webui-volume
+          emptyDir: {}       
+            
+           
